@@ -29,7 +29,7 @@
                     </items>
                 </navigationBar>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="7">
-                    <rect key="frame" x="0.0" y="63" width="320" height="425"/>
+                    <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>

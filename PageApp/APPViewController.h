@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Handshake Co.. All rights reserved.
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface APPViewController : UIViewController <UIPageViewControllerDataSource>
 

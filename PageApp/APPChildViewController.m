@@ -32,6 +32,20 @@
     
 }
 
+- (void)showCameraTaken {
+        [self.labelName setHidden:YES];
+        [self.textName setHidden:YES];
+        [self.textDescription setHidden:YES];
+        
+        [self.labelTakePhoto setHidden:YES];
+        //[self.btnCamera setHidden:YES];
+        [self.labelPhotoC1 setHidden:NO];
+        [self.labelPhotoC2 setHidden:NO];
+        [self.imgSmallCamera setHidden:NO];
+        //[photoScrollView setHidden:NO];
+
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -191,7 +205,14 @@
             
             [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
-                    [self refresh:nil];
+                    
+                    NSData *data = imageData;
+
+                    UIImage *image = [UIImage imageWithData:data];
+                    [self.imgSmallCamera setImage:image];
+                    
+                    //[self refresh:nil];
+                    [self showCameraTaken];
                 }
                 else{
                     // Log details of the failure
@@ -399,5 +420,37 @@
         }
     }];
 }
+
+#pragma mark -
+#pragma mark UIImagePickerControllerDelegate methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // Access the uncropped image from info dictionary
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    
+    // Dismiss controller
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    // Resize image
+    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
+    [image drawInRect: CGRectMake(0, 0, 640, 960)];
+    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();   
+    
+    // Upload image
+    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
+    [self uploadImage:imageData];
+}
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD hides
+    [HUD removeFromSuperview];
+	HUD = nil;
+}
+
 
 @end

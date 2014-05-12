@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 #include <stdlib.h> // For math functions including arc4random (a number randomizer)
 
-@interface APPChildViewController : UIViewController <MBProgressHUDDelegate,UITextFieldDelegate>
+@interface APPChildViewController : UIViewController <UIImagePickerControllerDelegate, MBProgressHUDDelegate,UITextFieldDelegate>
 {
     IBOutlet UIScrollView *photoScrollView;
     NSMutableArray *allImages;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "APPAppDelegate.h"
+#import <Parse/Parse.h>
 
 int main(int argc, char *argv[])
 {

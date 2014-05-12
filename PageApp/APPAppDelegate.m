@@ -20,7 +20,7 @@
     // Fill in with your Parse credentials:
     // ****************************************************************************
     // [Parse setApplicationId:@"YOUR_APPLICATION_ID" clientKey:@"YOUR_CLIENT_KEY"];
-  /*  [Parse setApplicationId:@"idi3QQPPISRyFmQIqy1cjjiiE4yICoHqLcwg9dMG"
+    [Parse setApplicationId:@"idi3QQPPISRyFmQIqy1cjjiiE4yICoHqLcwg9dMG"
               clientKey:@"Cjc6UBSv3XegJEI1gaRpeA25zSlQtY7xJV6QRBAk"];
     
     
@@ -57,7 +57,7 @@
     // If you would like all objects to be private by default, remove this line.
     [defaultACL setPublicReadAccess:YES];
     
-    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];*/
+    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
     // Override point for customization after application launch.
     self.viewController = [[APPViewController alloc] initWithNibName:@"APPViewController" bundle:nil];
