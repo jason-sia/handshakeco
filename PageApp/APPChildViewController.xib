@@ -7,10 +7,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="APPChildViewController">
             <connections>
                 <outlet property="btnCamera" destination="azh-11-qJX" id="so4-5Q-2eZ"/>
+                <outlet property="btnReady" destination="FG3-TY-zKd" id="NL9-8o-TBc"/>
                 <outlet property="imgSmallCamera" destination="hjD-KR-FC1" id="Bv9-9E-2kh"/>
                 <outlet property="labelName" destination="hTf-tF-dPG" id="Dlt-Hu-fxq"/>
                 <outlet property="labelPhotoC1" destination="DUx-X0-cj0" id="EGu-IT-21j"/>
                 <outlet property="labelPhotoC2" destination="cg5-Iy-hJs" id="wBM-Ax-sld"/>
+                <outlet property="labelReadyC1" destination="Kyg-8S-X7v" id="Csd-hw-DpF"/>
+                <outlet property="labelReadyC2" destination="nqA-b0-HAg" id="K8s-tu-w1j"/>
                 <outlet property="labelTakePhoto" destination="Rft-Ri-hoA" id="d1Y-fV-YCj"/>
                 <outlet property="photoScrollView" destination="kDW-Jb-OkW" id="JJk-ce-9YT"/>
                 <outlet property="screenNumber" destination="4" id="14"/>
@@ -107,6 +110,25 @@
                         <action selector="keyboardDismissed:" destination="-1" eventType="editingDidEndOnExit" id="Cwt-EE-cri"/>
                     </connections>
                 </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nice you have setup your profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kyg-8S-X7v">
+                    <rect key="frame" x="42" y="99" width="247" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are ready to rock!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqA-b0-HAg">
+                    <rect key="frame" x="81" y="119" width="168" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FG3-TY-zKd">
+                    <rect key="frame" x="123" y="255" width="74" height="75"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ready.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -120,5 +142,6 @@
     <resources>
         <image name="background.png" width="320" height="480"/>
         <image name="camera.png" width="76" height="77"/>
+        <image name="ready.png" width="74" height="75"/>
     </resources>
 </document>

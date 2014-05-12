@@ -34,4 +34,8 @@
 @property (strong, nonatomic) IBOutlet UILabel* labelPhotoC2;
 @property (strong, nonatomic) IBOutlet UIImageView *imgSmallCamera;
 
+@property (strong, nonatomic) IBOutlet UILabel* labelReadyC1;
+@property (strong, nonatomic) IBOutlet UILabel* labelReadyC2;
+@property (strong, nonatomic) IBOutlet UIButton *btnReady;
+
 @end

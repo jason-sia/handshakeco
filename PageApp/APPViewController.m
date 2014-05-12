@@ -7,16 +7,83 @@
 
 #import "APPViewController.h"
 #import "APPChildViewController.h"
+#import <sqlite3.h>
 
 @interface APPViewController ()
-
+    @property (strong, nonatomic) NSString *databasePath;
+    @property (nonatomic) sqlite3 *contactDB;
+    @property (strong, nonatomic) IBOutlet UILabel *status;
 @end
 
 @implementation APPViewController
 
+- (void)buildDB {
+    NSString *docsDir;
+    NSArray *dirPaths;
+
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(
+      NSDocumentDirectory, NSUserDomainMask, YES);
+
+    docsDir = dirPaths[0];
+
+    // Build the path to the database file
+    _databasePath = [[NSString alloc]
+       initWithString: [docsDir stringByAppendingPathComponent:
+       @"contacts.db"]];
+
+    NSFileManager *filemgr = [NSFileManager defaultManager];
+
+    if ([filemgr fileExistsAtPath: _databasePath ] == NO)
+    {
+       const char *dbpath = [_databasePath UTF8String];
+
+       if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+       {
+            char *errMsg;
+            const char *sql_stmt =
+           "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY, NAME TEXT, JOB TEXT, PHONE TEXT)";
+
+            if (sqlite3_exec(_contactDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                 _status.text = @"Failed to create table";
+            }
+            else {
+                // add default user
+                sqlite3_stmt    *statement;
+                NSString *insertSQL = [NSString stringWithFormat:
+                    @"INSERT INTO CONTACTS (id, name, job, phone) VALUES (\"%d\", \"%@\", \"%@\", \"%@\")",
+                    0, @"", @"", @""];
+
+                const char *insert_stmt = [insertSQL UTF8String];
+                sqlite3_prepare_v2(_contactDB, insert_stmt,
+                    -1, &statement, NULL);
+                    if (sqlite3_step(statement) == SQLITE_DONE)
+                {
+                    _status.text = @"Contact added";
+                    /*_name.text = @"";
+                    _address.text = @"";
+                    _phone.text = @"";*/
+                } else {
+                 _status.text = @"Failed to add contact";
+                }
+                sqlite3_finalize(statement);
+            }
+           
+            sqlite3_close(_contactDB);
+        } else {
+                 _status.text = @"Failed to open/create database";
+        }
+     }
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    
+    // build database
+    [self buildDB];
     
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     

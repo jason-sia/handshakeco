@@ -7,6 +7,7 @@
 
 #import "APPChildViewController.h"
 #import "PhotoDetailViewController.h"
+#import <sqlite3.h>
 
 #define PADDING_TOP 0 // For placing the images nicely in the grid
 #define PADDING 4
@@ -15,7 +16,9 @@
 #define THUMBNAIL_HEIGHT 75
 
 @interface APPChildViewController ()
-
+    @property (strong, nonatomic) NSString *databasePath;
+    @property (nonatomic) sqlite3 *contactDB;
+    @property (strong, nonatomic) IBOutlet UILabel *status;
 @end
 
 @implementation APPChildViewController
@@ -26,10 +29,81 @@
     
     if (self) {
         // Custom initialization
+        
     }
     
     return self;
     
+}
+
+- (void) findContact:(int)idx
+{
+     const char *dbpath = [_databasePath UTF8String];
+     sqlite3_stmt    *statement;
+
+     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+     {
+             NSString *querySQL = [NSString stringWithFormat:
+               @"SELECT name, job FROM contacts WHERE id=%d",
+               idx];
+
+             const char *query_stmt = [querySQL UTF8String];
+
+            int nSqlStat = sqlite3_prepare_v2(_contactDB,
+                 query_stmt, -1, &statement, NULL);
+             if (nSqlStat == SQLITE_OK)
+             {
+                     if (sqlite3_step(statement) == SQLITE_ROW)
+                     {
+                             NSString *name = [[NSString alloc]
+                                initWithUTF8String:
+                                (const char *) sqlite3_column_text(
+                                  statement, 0)];
+                             [self.textName setText: name];
+                             NSString *job = [[NSString alloc]
+                                 initWithUTF8String:(const char *)
+                                 sqlite3_column_text(statement, 1)];
+                             [self.textDescription setText: job];
+                         
+                             _status.text = @"Match found";
+                     } else {
+                             _status.text = @"Match not found";
+                             [self.textName setText: @""];
+                             [self.textDescription setText: @""];
+                     }
+                     sqlite3_finalize(statement);
+             }
+             sqlite3_close(_contactDB);
+     }
+}
+
+- (void) updateContact:(int)idx
+{
+     const char *dbpath = [_databasePath UTF8String];
+     sqlite3_stmt    *statement;
+
+     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+     {
+             NSString *querySQL = [NSString stringWithFormat:
+               @"UPDATE contacts SET name=\"%@\", job=\"%@\" WHERE id=%d",
+               [self.textName text],[self.textDescription text],  idx];
+
+             const char *query_stmt = [querySQL UTF8String];
+
+             if (sqlite3_prepare_v2(_contactDB,
+                 query_stmt, -1, &statement, NULL) == SQLITE_OK)
+             {
+                     if (sqlite3_step(statement) == SQLITE_ROW)
+                     {
+                         
+                             _status.text = @"Match found";
+                     } else {
+                             _status.text = @"Match not found";
+                     }
+                     sqlite3_finalize(statement);
+             }
+             sqlite3_close(_contactDB);
+     }
 }
 
 - (void)showCameraTaken {
@@ -50,6 +124,19 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSString *docsDir;
+    NSArray *dirPaths;
+
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(
+      NSDocumentDirectory, NSUserDomainMask, YES);
+
+    docsDir = dirPaths[0];
+
+    // Build the path to the database file
+    _databasePath = [[NSString alloc]
+       initWithString: [docsDir stringByAppendingPathComponent:
+       @"contacts.db"]];
     
     self.screenNumber.text = [NSString stringWithFormat:@"Screen #%d", self.index];
     
@@ -65,6 +152,13 @@
         [self.labelPhotoC2 setHidden:YES];
         [self.imgSmallCamera setHidden:YES];
         [photoScrollView setHidden:YES];
+        
+        [self.labelReadyC1 setHidden:YES];
+        [self.labelReadyC2 setHidden:YES];
+        [self.btnReady setHidden:YES];
+        
+        [self findContact:0];
+
     }
     else if (self.index==1)
     {
@@ -79,6 +173,9 @@
         [self.imgSmallCamera setHidden:YES];
         [photoScrollView setHidden:YES];
         
+        [self.labelReadyC1 setHidden:YES];
+        [self.labelReadyC2 setHidden:YES];
+        [self.btnReady setHidden:YES];
     }
     else if (self.index==2)
     {
@@ -93,6 +190,9 @@
         [self.imgSmallCamera setHidden:YES];
         [photoScrollView setHidden:YES];
         
+        [self.labelReadyC1 setHidden:NO];
+        [self.labelReadyC2 setHidden:NO];
+        [self.btnReady setHidden:NO];
     }
     
 }
@@ -106,6 +206,8 @@
 
 - (IBAction)keyboardDismissed:(id)sender {
     [sender resignFirstResponder];
+    [self updateContact:0];
+    
 }
 
 //camera functions

@@ -34,6 +34,8 @@
 		505E519D1920D42400B6B1EF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E519C1920D42400B6B1EF /* QuartzCore.framework */; };
 		505E519F1920D42A00B6B1EF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E519E1920D42A00B6B1EF /* Security.framework */; };
 		505E51A11920D43200B6B1EF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E51A01920D43200B6B1EF /* SystemConfiguration.framework */; };
+		505E51A31920EF2300B6B1EF /* ready.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51A21920EF2300B6B1EF /* ready.png */; };
+		505E51A51920FF2000B6B1EF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E51A41920FF2000B6B1EF /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		505E519C1920D42400B6B1EF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		505E519E1920D42A00B6B1EF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		505E51A01920D43200B6B1EF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		505E51A21920EF2300B6B1EF /* ready.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ready.png; sourceTree = "<group>"; };
+		505E51A41920FF2000B6B1EF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505E51A51920FF2000B6B1EF /* libsqlite3.dylib in Frameworks */,
 				3520FE8A17660D1200BAA96A /* CoreGraphics.framework in Frameworks */,
 				505E51A11920D43200B6B1EF /* SystemConfiguration.framework in Frameworks */,
 				505E519F1920D42A00B6B1EF /* Security.framework in Frameworks */,
@@ -118,6 +123,7 @@
 		3520FE8417660D1200BAA96A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				505E51A41920FF2000B6B1EF /* libsqlite3.dylib */,
 				505E51A01920D43200B6B1EF /* SystemConfiguration.framework */,
 				505E519E1920D42A00B6B1EF /* Security.framework */,
 				505E519C1920D42400B6B1EF /* QuartzCore.framework */,
@@ -158,6 +164,7 @@
 		3520FE8C17660D1200BAA96A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				505E51A21920EF2300B6B1EF /* ready.png */,
 				505E51861920CD6100B6B1EF /* camera.png */,
 				505E51821920C26000B6B1EF /* background.png */,
 				3520FE8D17660D1200BAA96A /* ShakeHandApp-Info.plist */,
@@ -224,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3520FE9017660D1200BAA96A /* InfoPlist.strings in Resources */,
+				505E51A31920EF2300B6B1EF /* ready.png in Resources */,
 				3520FE9817660D1200BAA96A /* Default.png in Resources */,
 				505E51831920C26000B6B1EF /* background.png in Resources */,
 				3520FE9A17660D1200BAA96A /* Default@2x.png in Resources */,
