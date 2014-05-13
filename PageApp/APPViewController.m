@@ -42,7 +42,7 @@
        {
             char *errMsg;
             const char *sql_stmt =
-           "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY, NAME TEXT, JOB TEXT, PHONE TEXT)";
+           "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY, NAME TEXT, JOB TEXT, UUID TEXT, IMGLOW TEXT, IMGHIGH TEXT)";
 
             if (sqlite3_exec(_contactDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
@@ -52,7 +52,7 @@
                 // add default user
                 sqlite3_stmt    *statement;
                 NSString *insertSQL = [NSString stringWithFormat:
-                    @"INSERT INTO CONTACTS (id, name, job, phone) VALUES (\"%d\", \"%@\", \"%@\", \"%@\")",
+                    @"INSERT INTO CONTACTS (id, name, job, uuid, imglow, imghigh) VALUES (\"%d\", \"%@\", \"%@\", \"%@\",\"\",\"\")",
                     0, @"", @"", @""];
 
                 const char *insert_stmt = [insertSQL UTF8String];

@@ -36,6 +36,26 @@
 		505E51A11920D43200B6B1EF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E51A01920D43200B6B1EF /* SystemConfiguration.framework */; };
 		505E51A31920EF2300B6B1EF /* ready.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51A21920EF2300B6B1EF /* ready.png */; };
 		505E51A51920FF2000B6B1EF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E51A41920FF2000B6B1EF /* libsqlite3.dylib */; };
+		505E51B61922507600B6B1EF /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51AD1922507600B6B1EF /* FirstViewController.m */; };
+		505E51B71922507600B6B1EF /* LeveyTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51AF1922507600B6B1EF /* LeveyTabBar.m */; };
+		505E51B81922507600B6B1EF /* LeveyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51B11922507600B6B1EF /* LeveyTabBarController.m */; };
+		505E51B91922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51B31922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m */; };
+		505E51BA1922507600B6B1EF /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51B51922507600B6B1EF /* SecondViewController.m */; };
+		505E51BD1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505E51BB1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib */; };
+		505E51BE1922509F00B6B1EF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505E51BC1922509F00B6B1EF /* MainWindow.xib */; };
+		505E51CC192250BD00B6B1EF /* 001_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51BF192250BD00B6B1EF /* 001_1.png */; };
+		505E51CD192250BD00B6B1EF /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C0192250BD00B6B1EF /* 1.png */; };
+		505E51CE192250BD00B6B1EF /* 001.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C1192250BD00B6B1EF /* 001.png */; };
+		505E51CF192250BD00B6B1EF /* 002_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C2192250BD00B6B1EF /* 002_2.png */; };
+		505E51D0192250BD00B6B1EF /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C3192250BD00B6B1EF /* 2.png */; };
+		505E51D1192250BD00B6B1EF /* 002.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C4192250BD00B6B1EF /* 002.png */; };
+		505E51D2192250BD00B6B1EF /* 003_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C5192250BD00B6B1EF /* 003_3.png */; };
+		505E51D3192250BD00B6B1EF /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C6192250BD00B6B1EF /* 3.png */; };
+		505E51D4192250BD00B6B1EF /* 003.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C7192250BD00B6B1EF /* 003.png */; };
+		505E51D5192250BD00B6B1EF /* 004_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C8192250BD00B6B1EF /* 004_4.png */; };
+		505E51D6192250BD00B6B1EF /* 004.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C9192250BD00B6B1EF /* 004.png */; };
+		505E51D7192250BD00B6B1EF /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51CA192250BD00B6B1EF /* bg.png */; };
+		505E51D8192250BD00B6B1EF /* c-2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51CB192250BD00B6B1EF /* c-2-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +96,31 @@
 		505E51A01920D43200B6B1EF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		505E51A21920EF2300B6B1EF /* ready.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ready.png; sourceTree = "<group>"; };
 		505E51A41920FF2000B6B1EF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		505E51AC1922507600B6B1EF /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		505E51AD1922507600B6B1EF /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		505E51AE1922507600B6B1EF /* LeveyTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyTabBar.h; sourceTree = "<group>"; };
+		505E51AF1922507600B6B1EF /* LeveyTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyTabBar.m; sourceTree = "<group>"; };
+		505E51B01922507600B6B1EF /* LeveyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyTabBarController.h; sourceTree = "<group>"; };
+		505E51B11922507600B6B1EF /* LeveyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyTabBarController.m; sourceTree = "<group>"; };
+		505E51B21922507600B6B1EF /* LeveyTabBarDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeveyTabBarDemoAppDelegate.h; sourceTree = "<group>"; };
+		505E51B31922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeveyTabBarDemoAppDelegate.m; sourceTree = "<group>"; };
+		505E51B41922507600B6B1EF /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		505E51B51922507600B6B1EF /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		505E51BB1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeveyTabBarDemoViewController.xib; sourceTree = "<group>"; };
+		505E51BC1922509F00B6B1EF /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		505E51BF192250BD00B6B1EF /* 001_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 001_1.png; sourceTree = "<group>"; };
+		505E51C0192250BD00B6B1EF /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		505E51C1192250BD00B6B1EF /* 001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 001.png; sourceTree = "<group>"; };
+		505E51C2192250BD00B6B1EF /* 002_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 002_2.png; sourceTree = "<group>"; };
+		505E51C3192250BD00B6B1EF /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		505E51C4192250BD00B6B1EF /* 002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 002.png; sourceTree = "<group>"; };
+		505E51C5192250BD00B6B1EF /* 003_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 003_3.png; sourceTree = "<group>"; };
+		505E51C6192250BD00B6B1EF /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		505E51C7192250BD00B6B1EF /* 003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 003.png; sourceTree = "<group>"; };
+		505E51C8192250BD00B6B1EF /* 004_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 004_4.png; sourceTree = "<group>"; };
+		505E51C9192250BD00B6B1EF /* 004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 004.png; sourceTree = "<group>"; };
+		505E51CA192250BD00B6B1EF /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		505E51CB192250BD00B6B1EF /* c-2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c-2-1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,19 +187,10 @@
 		3520FE8B17660D1200BAA96A /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				505E518D1920CEF200B6B1EF /* MBProgressHUD.h */,
-				505E518E1920CEF200B6B1EF /* MBProgressHUD.m */,
-				505E51881920CE8900B6B1EF /* PhotoDetailViewController.h */,
-				505E51891920CE8900B6B1EF /* PhotoDetailViewController.m */,
-				505E518A1920CE8900B6B1EF /* PhotoDetailViewController.xib */,
 				3520FE9417660D1200BAA96A /* APPAppDelegate.h */,
 				3520FE9517660D1200BAA96A /* APPAppDelegate.m */,
-				3520FE9D17660D1200BAA96A /* APPViewController.h */,
-				3520FE9E17660D1200BAA96A /* APPViewController.m */,
-				3520FEA017660D1200BAA96A /* APPViewController.xib */,
-				3520FEA817660F7B00BAA96A /* APPChildViewController.h */,
-				3520FEA917660F7B00BAA96A /* APPChildViewController.m */,
-				3520FEAA17660F7B00BAA96A /* APPChildViewController.xib */,
+				505E51A919224CE700B6B1EF /* Main */,
+				505E51A819224CCB00B6B1EF /* Setup */,
 				3520FE8C17660D1200BAA96A /* Supporting Files */,
 			);
 			name = Source;
@@ -164,9 +200,8 @@
 		3520FE8C17660D1200BAA96A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				505E51A21920EF2300B6B1EF /* ready.png */,
-				505E51861920CD6100B6B1EF /* camera.png */,
-				505E51821920C26000B6B1EF /* background.png */,
+				505E51AB19224D0600B6B1EF /* Main */,
+				505E51AA19224CF400B6B1EF /* Setup */,
 				3520FE8D17660D1200BAA96A /* ShakeHandApp-Info.plist */,
 				3520FE8E17660D1200BAA96A /* InfoPlist.strings */,
 				3520FE9117660D1200BAA96A /* main.m */,
@@ -176,6 +211,73 @@
 				3520FE9B17660D1200BAA96A /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		505E51A819224CCB00B6B1EF /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				505E518D1920CEF200B6B1EF /* MBProgressHUD.h */,
+				505E518E1920CEF200B6B1EF /* MBProgressHUD.m */,
+				505E51881920CE8900B6B1EF /* PhotoDetailViewController.h */,
+				505E51891920CE8900B6B1EF /* PhotoDetailViewController.m */,
+				505E518A1920CE8900B6B1EF /* PhotoDetailViewController.xib */,
+				3520FE9D17660D1200BAA96A /* APPViewController.h */,
+				3520FE9E17660D1200BAA96A /* APPViewController.m */,
+				3520FEA017660D1200BAA96A /* APPViewController.xib */,
+				3520FEA817660F7B00BAA96A /* APPChildViewController.h */,
+				3520FEA917660F7B00BAA96A /* APPChildViewController.m */,
+				3520FEAA17660F7B00BAA96A /* APPChildViewController.xib */,
+			);
+			name = Setup;
+			sourceTree = "<group>";
+		};
+		505E51A919224CE700B6B1EF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				505E51BB1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib */,
+				505E51BC1922509F00B6B1EF /* MainWindow.xib */,
+				505E51AC1922507600B6B1EF /* FirstViewController.h */,
+				505E51AD1922507600B6B1EF /* FirstViewController.m */,
+				505E51AE1922507600B6B1EF /* LeveyTabBar.h */,
+				505E51AF1922507600B6B1EF /* LeveyTabBar.m */,
+				505E51B01922507600B6B1EF /* LeveyTabBarController.h */,
+				505E51B11922507600B6B1EF /* LeveyTabBarController.m */,
+				505E51B21922507600B6B1EF /* LeveyTabBarDemoAppDelegate.h */,
+				505E51B31922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m */,
+				505E51B41922507600B6B1EF /* SecondViewController.h */,
+				505E51B51922507600B6B1EF /* SecondViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		505E51AA19224CF400B6B1EF /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				505E51A21920EF2300B6B1EF /* ready.png */,
+				505E51861920CD6100B6B1EF /* camera.png */,
+				505E51821920C26000B6B1EF /* background.png */,
+			);
+			name = Setup;
+			sourceTree = "<group>";
+		};
+		505E51AB19224D0600B6B1EF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				505E51BF192250BD00B6B1EF /* 001_1.png */,
+				505E51C0192250BD00B6B1EF /* 1.png */,
+				505E51C1192250BD00B6B1EF /* 001.png */,
+				505E51C2192250BD00B6B1EF /* 002_2.png */,
+				505E51C3192250BD00B6B1EF /* 2.png */,
+				505E51C4192250BD00B6B1EF /* 002.png */,
+				505E51C5192250BD00B6B1EF /* 003_3.png */,
+				505E51C6192250BD00B6B1EF /* 3.png */,
+				505E51C7192250BD00B6B1EF /* 003.png */,
+				505E51C8192250BD00B6B1EF /* 004_4.png */,
+				505E51C9192250BD00B6B1EF /* 004.png */,
+				505E51CA192250BD00B6B1EF /* bg.png */,
+				505E51CB192250BD00B6B1EF /* c-2-1.png */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,15 +333,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				3520FE9017660D1200BAA96A /* InfoPlist.strings in Resources */,
+				505E51D6192250BD00B6B1EF /* 004.png in Resources */,
+				505E51D7192250BD00B6B1EF /* bg.png in Resources */,
+				505E51CC192250BD00B6B1EF /* 001_1.png in Resources */,
+				505E51D0192250BD00B6B1EF /* 2.png in Resources */,
+				505E51BD1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib in Resources */,
 				505E51A31920EF2300B6B1EF /* ready.png in Resources */,
+				505E51D5192250BD00B6B1EF /* 004_4.png in Resources */,
 				3520FE9817660D1200BAA96A /* Default.png in Resources */,
+				505E51D2192250BD00B6B1EF /* 003_3.png in Resources */,
 				505E51831920C26000B6B1EF /* background.png in Resources */,
 				3520FE9A17660D1200BAA96A /* Default@2x.png in Resources */,
 				3520FE9C17660D1200BAA96A /* Default-568h@2x.png in Resources */,
 				3520FEA217660D1200BAA96A /* APPViewController.xib in Resources */,
+				505E51CE192250BD00B6B1EF /* 001.png in Resources */,
+				505E51BE1922509F00B6B1EF /* MainWindow.xib in Resources */,
+				505E51D1192250BD00B6B1EF /* 002.png in Resources */,
 				505E518C1920CE8900B6B1EF /* PhotoDetailViewController.xib in Resources */,
+				505E51D4192250BD00B6B1EF /* 003.png in Resources */,
+				505E51D3192250BD00B6B1EF /* 3.png in Resources */,
 				505E51871920CD6100B6B1EF /* camera.png in Resources */,
 				3520FEAC17660F7B00BAA96A /* APPChildViewController.xib in Resources */,
+				505E51CD192250BD00B6B1EF /* 1.png in Resources */,
+				505E51CF192250BD00B6B1EF /* 002_2.png in Resources */,
+				505E51D8192250BD00B6B1EF /* c-2-1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,10 +367,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505E51B81922507600B6B1EF /* LeveyTabBarController.m in Sources */,
+				505E51B91922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m in Sources */,
 				3520FE9217660D1200BAA96A /* main.m in Sources */,
+				505E51B71922507600B6B1EF /* LeveyTabBar.m in Sources */,
 				505E518F1920CEF200B6B1EF /* MBProgressHUD.m in Sources */,
+				505E51B61922507600B6B1EF /* FirstViewController.m in Sources */,
 				3520FE9617660D1200BAA96A /* APPAppDelegate.m in Sources */,
 				3520FE9F17660D1200BAA96A /* APPViewController.m in Sources */,
+				505E51BA1922507600B6B1EF /* SecondViewController.m in Sources */,
 				505E518B1920CE8900B6B1EF /* PhotoDetailViewController.m in Sources */,
 				3520FEAB17660F7B00BAA96A /* APPChildViewController.m in Sources */,
 			);

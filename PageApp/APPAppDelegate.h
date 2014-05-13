@@ -7,13 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LeveyTabBarController.h"
 
 @class APPViewController;
 
-@interface APPAppDelegate : UIResponder <UIApplicationDelegate>
+@interface APPAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) APPViewController *viewController;
+@property (nonatomic, retain) IBOutlet LeveyTabBarController *leveyTabBarController;
+
+@property (nonatomic) int startUpFlag;
+
+- (void)initMain;
 
 @end

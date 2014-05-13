@@ -28,6 +28,8 @@
 @property (strong, nonatomic) IBOutlet UILabel* labelTakePhoto;
 @property (strong, nonatomic) IBOutlet UIButton *btnCamera;
 - (IBAction)cameraButtonTapped:(id)sender;
+- (IBAction)readyButtonTapped:(id)sender;
+
 - (IBAction)refresh:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UILabel* labelPhotoC1;

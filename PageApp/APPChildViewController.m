@@ -8,6 +8,7 @@
 #import "APPChildViewController.h"
 #import "PhotoDetailViewController.h"
 #import <sqlite3.h>
+#import "APPAppDelegate.h"
 
 #define PADDING_TOP 0 // For placing the images nicely in the grid
 #define PADDING 4
@@ -19,6 +20,8 @@
     @property (strong, nonatomic) NSString *databasePath;
     @property (nonatomic) sqlite3 *contactDB;
     @property (strong, nonatomic) IBOutlet UILabel *status;
+    @property (strong, nonatomic) NSString* m_filePathLow;
+    @property (strong, nonatomic) NSString* m_filePathHigh;
 @end
 
 @implementation APPChildViewController
@@ -44,7 +47,7 @@
      if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
      {
              NSString *querySQL = [NSString stringWithFormat:
-               @"SELECT name, job FROM contacts WHERE id=%d",
+               @"SELECT name, job, imglow, imghigh FROM contacts WHERE id=%d",
                idx];
 
              const char *query_stmt = [querySQL UTF8String];
@@ -65,6 +68,25 @@
                                  sqlite3_column_text(statement, 1)];
                              [self.textDescription setText: job];
                          
+                             _m_filePathLow = [[NSString alloc]
+                                 initWithUTF8String:(const char *)
+                                 sqlite3_column_text(statement, 2)];
+
+                             _m_filePathHigh = [[NSString alloc]
+                                 initWithUTF8String:(const char *)
+                                 sqlite3_column_text(statement, 3)];
+
+                            if (_m_filePathHigh.length>0)
+                            {
+                                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,       NSUserDomainMask, YES);
+                                NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+                                //NSString *filePath = [documentsPath stringByAppendingPathComponent:@"imagehigh.png"]; //Add the file name
+
+                                NSData *pngData = [NSData dataWithContentsOfFile:_m_filePathHigh];
+                                UIImage *imageHigh = [UIImage imageWithData:pngData];
+                                [self.imgSmallCamera setImage:imageHigh];
+                                //[self showCameraTaken];
+                            }
                              _status.text = @"Match found";
                      } else {
                              _status.text = @"Match not found";
@@ -105,6 +127,36 @@
              sqlite3_close(_contactDB);
      }
 }
+
+- (void) updateImageContact:(int)idx
+{
+     const char *dbpath = [_databasePath UTF8String];
+     sqlite3_stmt    *statement;
+
+     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+     {
+             NSString *querySQL = [NSString stringWithFormat:
+               @"UPDATE contacts SET imglow=\"%@\", imghigh=\"%@\" WHERE id=%d",
+               _m_filePathLow,_m_filePathHigh,  idx];
+
+             const char *query_stmt = [querySQL UTF8String];
+
+             if (sqlite3_prepare_v2(_contactDB,
+                 query_stmt, -1, &statement, NULL) == SQLITE_OK)
+             {
+                     if (sqlite3_step(statement) == SQLITE_ROW)
+                     {
+                         
+                             _status.text = @"Match found";
+                     } else {
+                             _status.text = @"Match not found";
+                     }
+                     sqlite3_finalize(statement);
+             }
+             sqlite3_close(_contactDB);
+     }
+}
+
 
 - (void)showCameraTaken {
         [self.labelName setHidden:YES];
@@ -162,6 +214,7 @@
     }
     else if (self.index==1)
     {
+        [self findContact:0];
         [self.labelName setHidden:YES];
         [self.textName setHidden:YES];
         [self.textDescription setHidden:YES];
@@ -176,6 +229,11 @@
         [self.labelReadyC1 setHidden:YES];
         [self.labelReadyC2 setHidden:YES];
         [self.btnReady setHidden:YES];
+        
+        if (_m_filePathHigh.length>0)
+        {
+            [self showCameraTaken];
+        }
     }
     else if (self.index==2)
     {
@@ -260,7 +318,32 @@
         
         NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
         [self uploadImage:imageData];
+        
+        // save image locally here
+        NSString *docsDir;
+        NSArray *dirPaths;
+
+        // Get the documents directory
+        dirPaths = NSSearchPathForDirectoriesInDomains(
+        NSDocumentDirectory, NSUserDomainMask, YES);
+
+        docsDir = dirPaths[0];
+
+        // Build the path to the database file
+        NSString* imageLowRes = [[NSString alloc]
+            initWithString: [docsDir stringByAppendingPathComponent:
+            @"lowres.jpg"]];
+        NSString* imageHighRes = [[NSString alloc]
+            initWithString: [docsDir stringByAppendingPathComponent:
+            @"highres.jpg"]];
+        
     }
+}
+
+- (IBAction)readyButtonTapped:(id)sender
+{
+    APPAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    [appDelegate initMain];
 }
 
 - (void)uploadImage:(NSData *)imageData
@@ -308,13 +391,16 @@
             [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     
-                    NSData *data = imageData;
+                    //NSData *data = imageData;
 
-                    UIImage *image = [UIImage imageWithData:data];
-                    [self.imgSmallCamera setImage:image];
+                    //UIImage *image = [UIImage imageWithData:data];
+                    //[self.imgSmallCamera setImage:image];
                     
                     //[self refresh:nil];
-                    [self showCameraTaken];
+                    //[self showCameraTaken];
+                    
+                    //save camera location
+                    
                 }
                 else{
                     // Log details of the failure
@@ -529,20 +615,74 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     // Access the uncropped image from info dictionary
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *imageLow = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    // Access the uncropped image from info dictionary
+    UIImage *imageHigh = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    // Resize image
-    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-    [image drawInRect: CGRectMake(0, 0, 640, 960)];
+    // Resize low image
+    UIGraphicsBeginImageContext(CGSizeMake(160, 240));
+    [imageLow drawInRect: CGRectMake(0, 0, 160, 240)];
     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();   
     
+    // Resize high image
+    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
+    [imageHigh drawInRect: CGRectMake(0, 0, 640, 960)];
+    UIImage *bigImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();   
+    
+    
+     /*   // save image locally here
+        NSString *docsDir;
+        NSArray *dirPaths;
+
+        // Get the documents directory
+        dirPaths = NSSearchPathForDirectoriesInDomains(
+        NSDocumentDirectory, NSUserDomainMask, YES);
+
+        docsDir = dirPaths[0];
+
+        // Build the path to the database file
+        NSString* imageLowRes = [[NSString alloc]
+            initWithString: [docsDir stringByAppendingPathComponent:
+            @"lowres.jpg"]];
+        NSString* imageHighRes = [[NSString alloc]
+            initWithString: [docsDir stringByAppendingPathComponent:
+            @"highres.jpg"]];
+    */
+    // save image to file
+    //
+    
     // Upload image
-    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.05f);
-    [self uploadImage:imageData];
+    NSData *imageDataHigh = UIImageJPEGRepresentation(bigImage, 0.05f);
+    NSData *imageDataLow = UIImageJPEGRepresentation(smallImage, 0.05f);
+    
+    //NSData *pngData = UIImagePNGRepresentation(image);
+    //This pulls out PNG data of the image you've captured. From here, you can write it to a file:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+    //mmNSString *
+    _m_filePathLow = [documentsPath stringByAppendingPathComponent:@"imageLow.png"]; //Add the file name
+    [imageDataLow writeToFile:_m_filePathLow atomically:YES]; //Write the file
+    //NSString *m
+    _m_filePathHigh = [documentsPath stringByAppendingPathComponent:@"imageHigh.png"]; //Add the file name
+    [imageDataHigh writeToFile:_m_filePathHigh atomically:YES]; //Write the file
+    
+    [self updateImageContact:0];
+    
+                    NSData *data = imageDataHigh;
+
+                    UIImage *image = [UIImage imageWithData:data];
+                    [self.imgSmallCamera setImage:image];
+                    
+                    //[self refresh:nil];
+                    [self showCameraTaken];
+    
+    
+    //[self uploadImage:imageDataHigh];
 }
 
 #pragma mark -
