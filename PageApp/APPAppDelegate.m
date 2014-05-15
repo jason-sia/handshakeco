@@ -11,6 +11,7 @@
 
 #import "FirstViewController.h"
 #import "SecondViewController.h"
+#import "FindIDViewController.h"
 //#import "LeveyTabBarController.h"
 
 @implementation APPAppDelegate
@@ -18,7 +19,8 @@
 - (void)initMain {
     FirstViewController *firstVC = [[FirstViewController alloc] init];
 	SecondViewController *secondVC = [[SecondViewController alloc] init];
-	UITableViewController *thirdVC = [[UITableViewController alloc] init];
+//	UITableViewController *thirdVC = [[UITableViewController alloc] init];
+	UITableViewController *thirdVC = [[FindIDViewController alloc] init];
 	UIViewController *fourthVC = [[UIViewController alloc] init];
 	fourthVC.view.backgroundColor = [UIColor grayColor];
     
@@ -26,7 +28,7 @@
 	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:secondVC];
 	nc.delegate = self;
 	//[secondVC release];
-	NSArray *ctrlArr = [NSArray arrayWithObjects:firstVC,nc,thirdVC,fourthVC,nil];
+	NSArray *ctrlArr = [NSArray arrayWithObjects:firstVC,thirdVC,nc,fourthVC,nil];
 	//[firstVC release];
 	//[nc release];
 	//[thirdVC release];
@@ -93,16 +95,21 @@
     if (!currentUser) {
         // Dummy username and password
         PFUser *user = [PFUser user];
-        user.username = @"jasonbsia";
+        user.username = @"jasonbsia2";
         user.password = @"handshakeco0601";
-        user.email = @"jasonbsia@gmail.com";
+        user.email = @"jasonbsia2@gmail.com";
         
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {
                 // Assume the error is because the user already existed.
-                [PFUser logInWithUsername:@"jasonbsia" password:@"handshakeco0601"];
+                [PFUser logInWithUsername:@"jasonbsia2" password:@"handshakeco0601"];
             }
         }];
+        self.startUpFlag = 0;
+    }
+    else
+    {
+        self.startUpFlag = 1;
     }
     
     
@@ -116,7 +123,7 @@
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
     
-    self.startUpFlag = 0;
+    //self.startUpFlag = 0;
     // check if setup or tab bar
     if (self.startUpFlag==0)
     {

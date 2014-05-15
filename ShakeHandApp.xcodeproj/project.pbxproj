@@ -56,6 +56,10 @@
 		505E51D6192250BD00B6B1EF /* 004.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51C9192250BD00B6B1EF /* 004.png */; };
 		505E51D7192250BD00B6B1EF /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51CA192250BD00B6B1EF /* bg.png */; };
 		505E51D8192250BD00B6B1EF /* c-2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51CB192250BD00B6B1EF /* c-2-1.png */; };
+		505E51DA1923AC7700B6B1EF /* emptycontact.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51D91923AC7700B6B1EF /* emptycontact.png */; };
+		505E51DD1923B61800B6B1EF /* DBLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51DC1923B61800B6B1EF /* DBLocal.m */; };
+		505E51DF1923CE0C00B6B1EF /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E51DE1923CE0C00B6B1EF /* CoreBluetooth.framework */; };
+		505E51E21923D2EB00B6B1EF /* FindIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51E11923D2EB00B6B1EF /* FindIDViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +125,12 @@
 		505E51C9192250BD00B6B1EF /* 004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 004.png; sourceTree = "<group>"; };
 		505E51CA192250BD00B6B1EF /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		505E51CB192250BD00B6B1EF /* c-2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "c-2-1.png"; sourceTree = "<group>"; };
+		505E51D91923AC7700B6B1EF /* emptycontact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptycontact.png; sourceTree = "<group>"; };
+		505E51DB1923B61800B6B1EF /* DBLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLocal.h; sourceTree = "<group>"; };
+		505E51DC1923B61800B6B1EF /* DBLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLocal.m; sourceTree = "<group>"; };
+		505E51DE1923CE0C00B6B1EF /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		505E51E01923D2EB00B6B1EF /* FindIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindIDViewController.h; sourceTree = "<group>"; };
+		505E51E11923D2EB00B6B1EF /* FindIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindIDViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505E51DF1923CE0C00B6B1EF /* CoreBluetooth.framework in Frameworks */,
 				505E51A51920FF2000B6B1EF /* libsqlite3.dylib in Frameworks */,
 				3520FE8A17660D1200BAA96A /* CoreGraphics.framework in Frameworks */,
 				505E51A11920D43200B6B1EF /* SystemConfiguration.framework in Frameworks */,
@@ -168,6 +179,7 @@
 		3520FE8417660D1200BAA96A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				505E51DE1923CE0C00B6B1EF /* CoreBluetooth.framework */,
 				505E51A41920FF2000B6B1EF /* libsqlite3.dylib */,
 				505E51A01920D43200B6B1EF /* SystemConfiguration.framework */,
 				505E519E1920D42A00B6B1EF /* Security.framework */,
@@ -189,6 +201,8 @@
 			children = (
 				3520FE9417660D1200BAA96A /* APPAppDelegate.h */,
 				3520FE9517660D1200BAA96A /* APPAppDelegate.m */,
+				505E51DB1923B61800B6B1EF /* DBLocal.h */,
+				505E51DC1923B61800B6B1EF /* DBLocal.m */,
 				505E51A919224CE700B6B1EF /* Main */,
 				505E51A819224CCB00B6B1EF /* Setup */,
 				3520FE8C17660D1200BAA96A /* Supporting Files */,
@@ -234,6 +248,8 @@
 		505E51A919224CE700B6B1EF /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				505E51E01923D2EB00B6B1EF /* FindIDViewController.h */,
+				505E51E11923D2EB00B6B1EF /* FindIDViewController.m */,
 				505E51BB1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib */,
 				505E51BC1922509F00B6B1EF /* MainWindow.xib */,
 				505E51AC1922507600B6B1EF /* FirstViewController.h */,
@@ -253,6 +269,7 @@
 		505E51AA19224CF400B6B1EF /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				505E51D91923AC7700B6B1EF /* emptycontact.png */,
 				505E51A21920EF2300B6B1EF /* ready.png */,
 				505E51861920CD6100B6B1EF /* camera.png */,
 				505E51821920C26000B6B1EF /* background.png */,
@@ -332,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505E51DA1923AC7700B6B1EF /* emptycontact.png in Resources */,
 				3520FE9017660D1200BAA96A /* InfoPlist.strings in Resources */,
 				505E51D6192250BD00B6B1EF /* 004.png in Resources */,
 				505E51D7192250BD00B6B1EF /* bg.png in Resources */,
@@ -369,6 +387,7 @@
 			files = (
 				505E51B81922507600B6B1EF /* LeveyTabBarController.m in Sources */,
 				505E51B91922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m in Sources */,
+				505E51E21923D2EB00B6B1EF /* FindIDViewController.m in Sources */,
 				3520FE9217660D1200BAA96A /* main.m in Sources */,
 				505E51B71922507600B6B1EF /* LeveyTabBar.m in Sources */,
 				505E518F1920CEF200B6B1EF /* MBProgressHUD.m in Sources */,
@@ -376,6 +395,7 @@
 				3520FE9617660D1200BAA96A /* APPAppDelegate.m in Sources */,
 				3520FE9F17660D1200BAA96A /* APPViewController.m in Sources */,
 				505E51BA1922507600B6B1EF /* SecondViewController.m in Sources */,
+				505E51DD1923B61800B6B1EF /* DBLocal.m in Sources */,
 				505E518B1920CE8900B6B1EF /* PhotoDetailViewController.m in Sources */,
 				3520FEAB17660F7B00BAA96A /* APPChildViewController.m in Sources */,
 			);

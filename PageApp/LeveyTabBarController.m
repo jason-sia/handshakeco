@@ -2,18 +2,23 @@
 //  LeveyTabBarControllerViewController.m
 //  LeveyTabBarController
 //
-//  Created by zhang on 12-10-10.
-//  Copyright (c) 2012年 jclt. All rights reserved.
+//  Created by Jason Sia on 14-05-14.
+//  Copyright (c) 2014 Handshake co. All rights reserved.
 //
 //
 
 #import "LeveyTabBarController.h"
 #import "LeveyTabBar.h"
+#import "APPAppDelegate.h"
+#import "DBLocal.h"
+
 #define kTabBarHeight 49.0f
 
 static LeveyTabBarController *leveyTabBarController;
 
-@implementation UIViewController (LeveyTabBarControllerSupport)
+@implementation UIViewController (LeveyTabBarControllerSupport) 
+
+APPAppDelegate *appDelegate;
 
 - (LeveyTabBarController *)leveyTabBarController
 {
@@ -54,9 +59,52 @@ static LeveyTabBarController *leveyTabBarController;
         leveyTabBarController = self;
         animateDriect = 0;
 	}
+    
+        [self initBeacon];
 	return self;
 }
 
+- (void)initBeacon {
+    DBLocal* db = [DBLocal alloc]; //)]
+    [db findContact:0];
+    
+      PFObject *myInfo = appDelegate.myInfo;
+  //  NSString *MajorID = [myInfo objectForKey:@"user_id"];
+    NSInteger MajorID = [[myInfo objectForKey:@"user_id"] integerValue];
+//    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:db.getUUID ] ;
+       NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"11112222-3333-4444-5555-666677778888"];
+    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                                major:MajorID
+                                                                minor:1
+                                                           identifier:@"com.shakehandco.BizCardXchange"];
+}
+
+-(void) BroadCastNameCardStart {
+
+//- (IBAction)transmitBeacon:(UIButton *)sender {
+    self.beaconPeripheralData = [self.beaconRegion peripheralDataWithMeasuredPower:nil];
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                     queue:nil
+                                                                   options:nil];
+}
+
+-(void) BroadCastNameCardStop
+{
+
+ [self.peripheralManager stopAdvertising];
+ //           options:nil];
+
+}
+
+-(void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
+    if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
+        NSLog(@"Powered On");
+        [self.peripheralManager startAdvertising:self.beaconPeripheralData];
+    } else if (peripheral.state == CBPeripheralManagerStatePoweredOff) {
+        NSLog(@"Powered Off");
+        [self.peripheralManager stopAdvertising];
+    }
+}
 - (void)loadView 
 {
 	[super loadView];

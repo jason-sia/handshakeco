@@ -42,7 +42,7 @@
        {
             char *errMsg;
             const char *sql_stmt =
-           "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY, NAME TEXT, JOB TEXT, UUID TEXT, IMGLOW TEXT, IMGHIGH TEXT)";
+           "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY, NAME TEXT, JOB TEXT, UUID TEXT, IMGLOW TEXT, IMGHIGH TEXT, PROFILEPIC TEXT)";
 
             if (sqlite3_exec(_contactDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
@@ -51,9 +51,14 @@
             else {
                 // add default user
                 sqlite3_stmt    *statement;
+                
+                CFUUIDRef udid = CFUUIDCreate(NULL);
+                NSString *udidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, udid));
+                //[contact setObject:udidString forKey:@"uuid"];
+                
                 NSString *insertSQL = [NSString stringWithFormat:
-                    @"INSERT INTO CONTACTS (id, name, job, uuid, imglow, imghigh) VALUES (\"%d\", \"%@\", \"%@\", \"%@\",\"\",\"\")",
-                    0, @"", @"", @""];
+                    @"INSERT INTO CONTACTS (id, name, job, uuid, imglow, imghigh, profilepic) VALUES (\"%d\", \"%@\", \"%@\", \"%@\",\"\",\"\",\"\")",
+                    0, @"", @"", udidString];
 
                 const char *insert_stmt = [insertSQL UTF8String];
                 sqlite3_prepare_v2(_contactDB, insert_stmt,

@@ -2,16 +2,19 @@
 //  LeveyTabBarControllerViewController.h
 //  LeveyTabBarController
 //
-//  Created by zhang on 12-10-10.
-//  Copyright (c) 2012年 jclt. All rights reserved.
+//  Created by Jason Sia on 14-05-14.
+//  Copyright (c) 2014 Handshake co. All rights reserved.
 //
 //
 
 #import <UIKit/UIKit.h>
 #import "LeveyTabBar.h"
+#import <CoreLocation/CoreLocation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+
 @class UITabBarController;
 @protocol LeveyTabBarControllerDelegate;
-@interface LeveyTabBarController : UIViewController <LeveyTabBarDelegate>
+@interface LeveyTabBarController : UIViewController <LeveyTabBarDelegate,CBPeripheralManagerDelegate>
 {
 	LeveyTabBar *_tabBar;
 	UIView      *_containerView;
@@ -25,6 +28,20 @@
     
     NSInteger animateDriect;
 }
+
+// ibeacon properties start
+@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
+@property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *majorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *identityLabel;
+@property (strong, nonatomic) NSDictionary *beaconPeripheralData;
+@property (strong, nonatomic) CBPeripheralManager *peripheralManager;
+-(void) BroadCastNameCardStart;
+-(void) BroadCastNameCardStop;
+// ibeacon properties end
+
+
 
 @property(nonatomic, copy) NSMutableArray *viewControllers;
 

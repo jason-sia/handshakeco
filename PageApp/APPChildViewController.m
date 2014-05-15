@@ -22,6 +22,7 @@
     @property (strong, nonatomic) IBOutlet UILabel *status;
     @property (strong, nonatomic) NSString* m_filePathLow;
     @property (strong, nonatomic) NSString* m_filePathHigh;
+    @property (strong, nonatomic) NSString* m_uuid;
 @end
 
 @implementation APPChildViewController
@@ -47,7 +48,7 @@
      if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
      {
              NSString *querySQL = [NSString stringWithFormat:
-               @"SELECT name, job, imglow, imghigh FROM contacts WHERE id=%d",
+               @"SELECT name, job, imglow, imghigh, uuid FROM contacts WHERE id=%d",
                idx];
 
              const char *query_stmt = [querySQL UTF8String];
@@ -75,6 +76,10 @@
                              _m_filePathHigh = [[NSString alloc]
                                  initWithUTF8String:(const char *)
                                  sqlite3_column_text(statement, 3)];
+
+                             _m_uuid = [[NSString alloc]
+                                 initWithUTF8String:(const char *)
+                                 sqlite3_column_text(statement, 4)];
 
                             if (_m_filePathHigh.length>0)
                             {
@@ -106,6 +111,7 @@
 
      if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
      {
+     
              NSString *querySQL = [NSString stringWithFormat:
                @"UPDATE contacts SET name=\"%@\", job=\"%@\" WHERE id=%d",
                [self.textName text],[self.textDescription text],  idx];
@@ -340,10 +346,99 @@
     }
 }
 
-- (IBAction)readyButtonTapped:(id)sender
-{
-    APPAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    [appDelegate initMain];
+
+- (IBAction)readyButtonTapped:(id)sender {
+
+    [self findContact:0];
+
+    // Create PFObject with recipe information
+    PFObject *contact = [PFObject objectWithClassName:@"ContactDB"];
+    [contact setObject:self.textName.text forKey:@"name"];
+    [contact setObject:self.textDescription.text forKey:@"job"];
+    [contact setObject:_m_uuid forKey:@"uuid"];
+    
+    //NSArray *ingredients = [_ingredientsTextField.text componentsSeparatedByString: @","];
+    //[contact setObject:ingredients forKey:@"ingredients"];
+    // generate uuid  
+
+    
+    
+    // Card image
+    NSData *pngDataHigh = [NSData dataWithContentsOfFile:_m_filePathHigh];
+    //UIImage *imageHigh = [UIImage imageWithData:pngData];
+    //[self.imgSmallCamera setImage:imageHigh];
+    //NSData *imageData = UIImageJPEGRepresentation(_recipeImageView.image, 0.8);
+    //NSString *filename = [NSString stringWithFormat:@"%@.png", _nameTextField.text];
+    //PFFile *imageFileHigh = [PFFile fileWithName:_m_filePathHigh data:pngDataHigh];
+    PFFile *imageFileHigh = [PFFile fileWithName:@"ImageHigh.jpg" data:pngDataHigh];
+    [contact setObject:imageFileHigh forKey:@"imghigh"];
+
+
+    NSData *pngDataLow = [NSData dataWithContentsOfFile:_m_filePathLow];
+    PFFile *imageFileLow = [PFFile fileWithName:@"ImageLow.jpg" data:pngDataLow];
+    [contact setObject:imageFileLow forKey:@"imglow"];
+
+    // default contact image
+    UIImage* img = [UIImage imageNamed:@"emptycontact.png"];
+    NSData *pngDataContact = UIImagePNGRepresentation(img);
+    
+    //NSData *pngDataContact = [NSData dataWithContentsOfFile:@"emptycontact.png"];
+    PFFile *imageFileContact = [PFFile fileWithName:@"ImageProfile.jpg" data:pngDataContact];
+    [contact setObject:imageFileContact forKey:@"profilepic"];
+
+    
+    // Show progress
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Uploading";
+    [hud show:YES];
+
+    // Upload recipe to Parse
+    [contact saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        //[hud hide:YES];
+        
+        if (!error) {
+            //Hide determinate HUD
+            [HUD hide:YES];
+            
+            // Show checkmark
+            /*HUD = [[MBProgressHUD alloc] initWithView:self.view];
+            [self.view addSubview:HUD];
+            
+            // The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
+            // Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+            HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+            
+            // Set custom view mode
+            HUD.mode = MBProgressHUDModeCustomView;
+            
+            HUD.delegate = self;
+            */
+        
+            // Show success message
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"Successfully saved your profile" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            
+            // Notify table view to reload the recipes from Parse cloud
+            //[[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTable" object:self];
+            
+            // Dismiss the controller
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            APPAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+            [appDelegate initMain];
+            
+
+        } else {
+                    [HUD hide:YES];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Failure" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+
+        }
+        
+    }];
+
+
 }
 
 - (void)uploadImage:(NSData *)imageData

@@ -2,8 +2,8 @@
 //  LeveyTabBar.h
 //  LeveyTabBarController
 //
-//  Created by zhang on 12-10-10.
-//  Copyright (c) 2012年 jclt. All rights reserved.
+//  Created by Jason Sia on 14-05-14.
+//  Copyright (c) 2014 Handshake co. All rights reserved.
 //
 //
 

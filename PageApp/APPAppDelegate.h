@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LeveyTabBarController.h"
+#import <Parse/Parse.h>
 
 @class APPViewController;
 
@@ -19,6 +20,10 @@
 @property (nonatomic, retain) IBOutlet LeveyTabBarController *leveyTabBarController;
 
 @property (nonatomic) int startUpFlag;
+
+@property (strong, nonatomic) PFObject *myInfo;
+@property (strong, nonatomic) PFObject *yourInfo;
+@property (strong, nonatomic) PFObject *requestInfo;
 
 - (void)initMain;
 
