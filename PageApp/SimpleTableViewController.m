@@ -2,8 +2,8 @@
 //  SimpleTableViewController.m
 //  SimpleTable
 //
-//  Created by Simon Ng on 16/4/12.
-//  Copyright (c) 2012 AppCoda. All rights reserved.
+//  Created by Jason Sia on 15/05/14.
+//  Copyright (c) 2014 Shakehandco. All rights reserved.
 //
 
 #import "SimpleTableViewController.h"

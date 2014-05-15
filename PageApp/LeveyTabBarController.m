@@ -424,7 +424,7 @@ CBUUID *myCustomServiceUUID;
     [query whereKey:@"uuid" equalTo:myUUID];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
     if (!error) {
-        //[HUD hide:YES];
+        [HUD hide:YES];
         // The find succeeded. The first 100 objects are available in objects
         PFObject *object = [objects objectAtIndex:0];
         //Recipe *recipe = [[Recipe alloc] init];
@@ -477,7 +477,7 @@ CBUUID *myCustomServiceUUID;
         recipe.ingredients = [object objectForKey:@"ingredients"];
         lblName.text =*/
     } else {
-         //           [HUD hide:YES];
+                    [HUD hide:YES];
         // Log details of the failure
         NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
@@ -588,6 +588,15 @@ CBUUID *myCustomServiceUUID;
     
     if (_selectedIndex==1)
     {
+        // Set determinate mode
+        HUD.mode = MBProgressHUDModeDeterminate;
+        HUD.delegate = self;
+        HUD.labelText = @"Uploading";
+        [HUD show:YES];
+        SimpleTableViewController *_nearbyItemsController = (SimpleTableViewController*)[self.viewControllers objectAtIndex:1];
+        
+        [_nearbyItemsController setTableData:[NSMutableArray arrayWithObjects: nil]];
+        [_nearbyItemsController.tableView reloadData];
         [self findNearbyItems:nil];
     }
     

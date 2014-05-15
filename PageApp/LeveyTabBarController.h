@@ -13,11 +13,13 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "SimpleShare.h"
 #import "NearbyItemsViewController.h"
+#import "MBProgressHUD.h"
 
 @class UITabBarController;
 @protocol LeveyTabBarControllerDelegate;
 @interface LeveyTabBarController : UIViewController <LeveyTabBarDelegate,CBPeripheralManagerDelegate, SimpleShareDelegate,NearbyItemsViewControllerDelegate>
 {
+    MBProgressHUD *HUD;
 	LeveyTabBar *_tabBar;
 	UIView      *_containerView;
 	UIView		*_transitionView;

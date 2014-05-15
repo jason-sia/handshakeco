@@ -3,7 +3,7 @@
 //  SimpleTable
 //
 //  Created by Simon Ng on 28/4/12.
-//  Copyright (c) 2012 Appcoda. All rights reserved.
+//  Copyright (c) 2014 Shakehandco. All rights reserved.
 //
 
 #import "SimpleTableCell.h"
