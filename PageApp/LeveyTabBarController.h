@@ -11,10 +11,12 @@
 #import "LeveyTabBar.h"
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "SimpleShare.h"
+#import "NearbyItemsViewController.h"
 
 @class UITabBarController;
 @protocol LeveyTabBarControllerDelegate;
-@interface LeveyTabBarController : UIViewController <LeveyTabBarDelegate,CBPeripheralManagerDelegate>
+@interface LeveyTabBarController : UIViewController <LeveyTabBarDelegate,CBPeripheralManagerDelegate, SimpleShareDelegate,NearbyItemsViewControllerDelegate>
 {
 	LeveyTabBar *_tabBar;
 	UIView      *_containerView;
@@ -27,6 +29,9 @@
 	BOOL _tabBarHidden;
     
     NSInteger animateDriect;
+        UIBarButtonItem *_findingItemsActivityIndicator;
+    
+        NSMutableArray *_nearbyItems;
 }
 
 // ibeacon properties start
@@ -41,7 +46,10 @@
 -(void) BroadCastNameCardStop;
 // ibeacon properties end
 
+ @property (strong, nonatomic)  NSMutableArray *m_items;
 
+
+@property (nonatomic, retain) NSMutableArray *myItemIDs;
 
 @property(nonatomic, copy) NSMutableArray *viewControllers;
 

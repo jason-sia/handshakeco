@@ -11,6 +11,7 @@
 #import "LeveyTabBar.h"
 #import "APPAppDelegate.h"
 #import "DBLocal.h"
+#import "SimpleTableViewController.h"
 
 #define kTabBarHeight 49.0f
 
@@ -27,11 +28,16 @@ APPAppDelegate *appDelegate;
 
 @end
 
+CBUUID *myCustomServiceUUID;
+
 @interface LeveyTabBarController (private)
 - (void)displayViewAtIndex:(NSUInteger)index;
+
 @end
 
 @implementation LeveyTabBarController
+@synthesize myItemIDs = _myItemIDs;
+
 @synthesize delegate = _delegate;
 @synthesize selectedViewController = _selectedViewController;
 @synthesize viewControllers = _viewControllers;
@@ -60,7 +66,8 @@ APPAppDelegate *appDelegate;
         animateDriect = 0;
 	}
     
-        [self initBeacon];
+       // [self initBeacon];
+    
 	return self;
 }
 
@@ -72,7 +79,7 @@ APPAppDelegate *appDelegate;
   //  NSString *MajorID = [myInfo objectForKey:@"user_id"];
     NSInteger MajorID = [[myInfo objectForKey:@"user_id"] integerValue];
 //    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:db.getUUID ] ;
-       NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"11112222-3333-4444-5555-666677778888"];
+       NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"16C44370-4252-48BD-8C07-C74B0AFCDF6C"];
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
                                                                 major:MajorID
                                                                 minor:1
@@ -80,18 +87,25 @@ APPAppDelegate *appDelegate;
 }
 
 -(void) BroadCastNameCardStart {
-
+    [[SimpleShare sharedInstance] shareMyItems:self];
+    
+    /*
+    self.peripheralManager =
+        [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
+*/
 //- (IBAction)transmitBeacon:(UIButton *)sender {
-    self.beaconPeripheralData = [self.beaconRegion peripheralDataWithMeasuredPower:nil];
+    /*self.beaconPeripheralData = [self.beaconRegion peripheralDataWithMeasuredPower:nil];
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
                                                                      queue:nil
                                                                    options:nil];
+*/
 }
 
 -(void) BroadCastNameCardStop
 {
-
- [self.peripheralManager stopAdvertising];
+    [[SimpleShare sharedInstance] stopSharingMyItems:self];
+    
+ //[self.peripheralManager stopAdvertising];
  //           options:nil];
 
 }
@@ -99,7 +113,20 @@ APPAppDelegate *appDelegate;
 -(void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
         NSLog(@"Powered On");
-        [self.peripheralManager startAdvertising:self.beaconPeripheralData];
+        myCustomServiceUUID =
+            [CBUUID UUIDWithString:@"16C44370-4252-48BD-8C07-C74B0AFCDF6C"];
+        CBMutableService * myService = [[CBMutableService alloc] initWithType:myCustomServiceUUID primary:YES];
+        [self.peripheralManager addService:myService];
+        
+        NSDictionary *advData =
+        @{CBAdvertisementDataLocalNameKey:@"Custom Name",
+          CBAdvertisementDataServiceUUIDsKey:myCustomServiceUUID};
+        
+        NSString * baconName = [[UIDevice currentDevice] name];
+        [self.peripheralManager startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey :
+            @[myCustomServiceUUID],CBAdvertisementDataLocalNameKey:baconName }];
+        
+        //[self.peripheralManager startAdvertising:self.beaconPeripheralData];
     } else if (peripheral.state == CBPeripheralManagerStatePoweredOff) {
         NSLog(@"Powered Off");
         [self.peripheralManager stopAdvertising];
@@ -119,6 +146,16 @@ APPAppDelegate *appDelegate;
     [super viewDidLoad];
 	
     self.selectedIndex = 0;
+    
+    DBLocal* db = [DBLocal alloc]; //)]
+    [db findContact:0];
+    
+//    self.myItemIDs = [[NSMutableArray alloc] initWithObjects:[[NSUUID UUID] UUIDString], [[NSUUID UUID] UUIDString], [[NSUUID UUID] UUIDString], [[NSUUID UUID] UUIDString], [[NSUUID UUID] UUIDString], nil];
+    self.myItemIDs = [[NSMutableArray alloc] initWithObjects:[db getUUID], nil];
+    
+    // Tell SimpleShare the item IDs we are sharing
+    [SimpleShare sharedInstance].delegate = self;
+    [SimpleShare sharedInstance].myItemIDs = _myItemIDs;    
 }
 
 - (void)viewDidUnload
@@ -347,6 +384,188 @@ APPAppDelegate *appDelegate;
     [_tabBar insertTabWithImageDic:dict atIndex:index];
 }
 
+-(IBAction)findNearbyItems:(id)sender
+{
+    [[SimpleShare sharedInstance] findNearbyItems:self];
+    
+    // update UI to indicate it is looking for items
+    if (_findingItemsActivityIndicator == nil) {
+        UIActivityIndicatorView * activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [activityView sizeToFit];
+        [activityView setAutoresizingMask:(UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin)];
+        [activityView startAnimating];
+        _findingItemsActivityIndicator = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+        activityView = nil;
+    }
+    
+    [self.navigationItem setRightBarButtonItem:_findingItemsActivityIndicator];
+
+}
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"addNearbyItems"]) {
+        NearbyItemsViewController *_nearbyItemsController = (NearbyItemsViewController*)[self.viewControllers objectAtIndex:1];
+    
+        UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
+        _nearbyItemsController = (NearbyItemsViewController *)[navController topViewController];
+        [_nearbyItemsController setDelegate:self];
+        [_nearbyItemsController setNearbyItemIDs:_nearbyItems];
+      }
+}
+#pragma mark - SimpleShare Delegate
+
+-(void)getContactinParse:(NSString*) myUUID {
+    PFQuery *query = [PFQuery queryWithClassName:@"ContactDB"];
+    [query whereKey:@"uuid" equalTo:myUUID];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    if (!error) {
+        //[HUD hide:YES];
+        // The find succeeded. The first 100 objects are available in objects
+        PFObject *object = [objects objectAtIndex:0];
+        //Recipe *recipe = [[Recipe alloc] init];
+        NSString* name = [object objectForKey:@"name"];
+        NSString* job = [object objectForKey:@"job"];
+        
+        
+        [self.m_items addObject:[NSString stringWithFormat:@"%@, %@", name,job]];
+        
+       // [  .view beginUpdates];
+        //[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationBottom];
+        //[self.tableView endUpdates];
+        
+        /*
+        PFFile *imageFile = [object objectForKey:@"imghigh"];
+          [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+              if (!error) {
+                  UIImage *image = [UIImage imageWithData:data];
+                    UIImageView *highres=[[UIImageView alloc] initWithImage:image ];
+                    //highres
+                    [highres setFrame:CGRectMake(36, 250-60, 188, 99)];
+                    [self.view addSubview:highres];
+                  
+                // share your namecard
+                UITextField *textFieldShare = [[UITextField alloc] initWithFrame:CGRectMake(36, 310, 258, 30)];
+                textFieldShare.delegate = self;
+                textFieldShare.text = @"Share your name card";
+                [self.view addSubview:textFieldShare];
+    
+                //
+                UISwitch *onoff = [[UISwitch alloc] initWithFrame:CGRectMake(36, 340, 60, 30)];
+                [onoff addTarget: self action: @selector(flip:) forControlEvents: UIControlEventValueChanged];
+                [self.view addSubview:onoff];
+
+              }
+          }];
+        */
+  //      [self.tableView setDataSource:self];
+//          self.tableView.delegate = self;
+     //      [self.tableView SetArrayData:self.m_items];
+           //if (self.m_items.count>0)
+//                [self relo]
+                //[self.tableView reloadData];
+	SimpleTableViewController *_nearbyItemsController = (SimpleTableViewController*)[self.viewControllers objectAtIndex:1];
+    
+    [_nearbyItemsController setTableData:self.m_items];
+    [_nearbyItemsController.tableView reloadData];
+        /*
+        recipe.prepTime = [object objectForKey:@"prepTime"];
+        recipe.ingredients = [object objectForKey:@"ingredients"];
+        lblName.text =*/
+    } else {
+         //           [HUD hide:YES];
+        // Log details of the failure
+        NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+
+}
+
+- (void)loadData:(NSMutableArray*)data
+{
+    //
+
+    for (id obj in data) {
+        // Generic things that you do to objects of *any* class go here.
+
+        if ([obj isKindOfClass:[NSString class]]) {
+            // NSString-specific code.
+            // check uuid in the cloud to get the name
+            [self getContactinParse:obj];
+            
+        } else if ([obj isKindOfClass:[NSNumber class]]) {
+            // NSNumber-specific code.
+        }
+    }
+   //[m_items addObject:[NSString stringWithFormat:@"Item No. %d", num];
+}
+
+
+- (void)simpleShareFoundFirstItems:(NSArray *)itemIDs
+{
+    // get rid of old found nearby items
+    _nearbyItems = nil;
+    
+    _nearbyItems = [[NSMutableArray alloc] init];
+    
+    // add the first item to the array
+    [_nearbyItems addObjectsFromArray:itemIDs];
+    
+    // pop up nearby items controller to show found item
+    //[self performSegueWithIdentifier:@"addNearbyItems" sender:self];
+   // update nearby items controller
+	//NearbyItemsViewController *_nearbyItemsController = (NearbyItemsViewController*)[self.viewControllers objectAtIndex:1];
+	//SimpleTableViewController *_nearbyItemsController = (SimpleTableViewController*)[self.viewControllers objectAtIndex:1];
+        self.m_items = [[NSMutableArray alloc] initWithObjects: nil];
+   // [_nearbyItemsController setTableData:_nearbyItems];
+    //[_nearbyItemsController.tableView reloadData];
+    //[_nearbyItemsController.tab
+    [self loadData:_nearbyItems];
+//    [_nearbyItemsController
+   // [self loadData:_nearbyItems];
+    
+    //[_nearbyItemsController setNearbyItemIDs:_nearbyItems];
+    //[_nearbyItemsController.tableView reloadData];
+}
+
+- (void)simpleShareFoundMoreItems:(NSArray *)itemIDs
+{
+    // add the new item to the array
+    [_nearbyItems addObjectsFromArray:itemIDs];
+    
+	//NearbyItemsViewController *_nearbyItemsController = (NearbyItemsViewController*)[self.viewControllers objectAtIndex:1];
+    
+    // update nearby items controller
+    //[_nearbyItemsController setNearbyItemIDs:_nearbyItems];
+    [self loadData:_nearbyItems];
+    
+    
+    //[_nearbyItemsController.tableView reloadData];
+}
+
+- (void)simpleShareFoundNoItems:(SimpleShare *)simpleShare
+{
+    // update UI to show it is done looking for items
+    //[self.navigationItem setRightBarButtonItem:_findItemsButton];
+
+}
+
+- (void)simpleShareDidFailWithMessage:(NSString *)failMessage
+{
+    // update UI to show it is not looking for items
+    //[self.navigationItem setRightBarButtonItem:_findItemsButton];
+    
+    // update UI to indicate it is not sharing items
+   // _shareItemsButton.title = @"Share";
+    //_shareItemsButton.action = @selector(shareMyItems:);
+
+}
+
+
 
 #pragma mark - Private methods
 - (void)displayViewAtIndex:(NSUInteger)index
@@ -366,6 +585,11 @@ APPAppDelegate *appDelegate;
     }
     NSLog(@"Display View.");
     _selectedIndex = index;
+    
+    if (_selectedIndex==1)
+    {
+        [self findNearbyItems:nil];
+    }
     
 	UIViewController *selectedVC = [self.viewControllers objectAtIndex:index];
 	
@@ -398,4 +622,30 @@ APPAppDelegate *appDelegate;
         [self displayViewAtIndex:index];
     }
 }
+
+#pragma mark - NearbyItemsViewController Delegate
+
+- (void)nearbyItemsViewControllerAddedItem:(NSString *)itemID
+{
+    [_myItemIDs addObject:itemID];
+    
+    //[self.tableView reloadData];
+    
+    // Update SimpleShare with the item IDs we are sharing
+    [SimpleShare sharedInstance].myItemIDs = _myItemIDs;
+}
+
+- (void)nearbyItemsViewControllerDidCancel:(NearbyItemsViewController *)controller
+{
+    // update UI to show it is done looking for items
+    //[self.navigationItem setRightBarButtonItem:_findItemsButton];
+    
+    // dismiss the nearby items view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    // stop finding nearby items
+    [[SimpleShare sharedInstance] stopFindingNearbyItems:nil];
+
+}
+
 @end

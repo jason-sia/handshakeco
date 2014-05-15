@@ -11,8 +11,11 @@
 
 #import "FirstViewController.h"
 #import "SecondViewController.h"
-#import "FindIDViewController.h"
+#import "SimpleTableViewController.h"
 //#import "LeveyTabBarController.h"
+#import "SimpleShare.h"
+#import "DBLocal.h"
+#import <sqlite3.h>
 
 @implementation APPAppDelegate
 
@@ -20,7 +23,10 @@
     FirstViewController *firstVC = [[FirstViewController alloc] init];
 	SecondViewController *secondVC = [[SecondViewController alloc] init];
 //	UITableViewController *thirdVC = [[UITableViewController alloc] init];
-	UITableViewController *thirdVC = [[FindIDViewController alloc] init];
+
+//	UITableViewController *thirdVC = [[NearbyItemsViewController alloc] init];
+    SimpleTableViewController *thirdVC = [[SimpleTableViewController alloc] initWithNibName:@"SimpleTableViewController" bundle:nil];
+    
 	UIViewController *fourthVC = [[UIViewController alloc] init];
 	fourthVC.view.backgroundColor = [UIColor grayColor];
     
@@ -73,6 +79,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    [SimpleShare sharedInstance].simpleShareAppID = @"16C44370-4252-48BD-8C07-C74B0AFCDF6C";
     
     // ****************************************************************************
     // Fill in with your Parse credentials:
@@ -95,9 +102,14 @@
     if (!currentUser) {
         // Dummy username and password
         PFUser *user = [PFUser user];
-        user.username = @"jasonbsia2";
+
+
+                CFUUIDRef udid = CFUUIDCreate(NULL);
+                NSString *udidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, udid));
+        
+        user.username = udidString;
         user.password = @"handshakeco0601";
-        user.email = @"jasonbsia2@gmail.com";
+        user.email =  [NSString stringWithFormat:@"%@@gmail.com", udidString];
         
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) {
@@ -123,7 +135,15 @@
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
     
-    //self.startUpFlag = 0;
+    // build database
+    [self buildDB];    
+    
+    DBLocal* db = [DBLocal alloc]; //)]
+    [db findContact:0];
+    
+    if ([db getName].length>0)
+        self.startUpFlag = 1;
+    
     // check if setup or tab bar
     if (self.startUpFlag==0)
     {
@@ -153,6 +173,74 @@
     }
     return YES;
 }
+
+- (void)buildDB {
+    NSString *docsDir;
+    NSArray *dirPaths;
+     UILabel *_status;
+    
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(
+      NSDocumentDirectory, NSUserDomainMask, YES);
+
+    docsDir = dirPaths[0];
+    sqlite3 *_contactDB;
+
+    // Build the path to the database file
+    NSString* _databasePath = [[NSString alloc]
+       initWithString: [docsDir stringByAppendingPathComponent:
+       @"contacts.db"]];
+
+    NSFileManager *filemgr = [NSFileManager defaultManager];
+
+    if ([filemgr fileExistsAtPath: _databasePath ] == NO)
+    {
+       const char *dbpath = [_databasePath UTF8String];
+
+       if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+       {
+            char *errMsg;
+            const char *sql_stmt =
+           "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY, NAME TEXT, JOB TEXT, UUID TEXT, IMGLOW TEXT, IMGHIGH TEXT, PROFILEPIC TEXT)";
+
+            if (sqlite3_exec(_contactDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                 _status.text = @"Failed to create table";
+            }
+            else {
+                // add default user
+                sqlite3_stmt    *statement;
+                
+                CFUUIDRef udid = CFUUIDCreate(NULL);
+                NSString *udidString = (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, udid));
+                //[contact setObject:udidString forKey:@"uuid"];
+                
+                NSString *insertSQL = [NSString stringWithFormat:
+                    @"INSERT INTO CONTACTS (id, name, job, uuid, imglow, imghigh, profilepic) VALUES (\"%d\", \"%@\", \"%@\", \"%@\",\"\",\"\",\"\")",
+                    0, @"", @"", udidString];
+
+                const char *insert_stmt = [insertSQL UTF8String];
+                sqlite3_prepare_v2(_contactDB, insert_stmt,
+                    -1, &statement, NULL);
+                    if (sqlite3_step(statement) == SQLITE_DONE)
+                {
+                    _status.text = @"Contact added";
+                    /*_name.text = @"";
+                    _address.text = @"";
+                    _phone.text = @"";*/
+                } else {
+                 _status.text = @"Failed to add contact";
+                }
+                sqlite3_finalize(statement);
+            }
+           
+            sqlite3_close(_contactDB);
+        } else {
+                 _status.text = @"Failed to open/create database";
+        }
+     }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

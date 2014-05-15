@@ -59,7 +59,15 @@
 		505E51DA1923AC7700B6B1EF /* emptycontact.png in Resources */ = {isa = PBXBuildFile; fileRef = 505E51D91923AC7700B6B1EF /* emptycontact.png */; };
 		505E51DD1923B61800B6B1EF /* DBLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51DC1923B61800B6B1EF /* DBLocal.m */; };
 		505E51DF1923CE0C00B6B1EF /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 505E51DE1923CE0C00B6B1EF /* CoreBluetooth.framework */; };
-		505E51E21923D2EB00B6B1EF /* FindIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51E11923D2EB00B6B1EF /* FindIDViewController.m */; };
+		505E51E919246C5000B6B1EF /* SimpleShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51E819246C5000B6B1EF /* SimpleShare.m */; };
+		505E51EE19246E4800B6B1EF /* SSFindItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51EB19246E4800B6B1EF /* SSFindItemManager.m */; };
+		505E51EF19246E4800B6B1EF /* SSShareItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51ED19246E4800B6B1EF /* SSShareItemManager.m */; };
+		505E51F219246EF200B6B1EF /* NearbyItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51F119246EF200B6B1EF /* NearbyItemsViewController.m */; };
+		505E51F8192496CE00B6B1EF /* SimpleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51F6192496CE00B6B1EF /* SimpleTableViewController.m */; };
+		505E51F9192496CE00B6B1EF /* SimpleTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505E51F7192496CE00B6B1EF /* SimpleTableViewController.xib */; };
+		505E51FD1924970C00B6B1EF /* SimpleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 505E51FB1924970C00B6B1EF /* SimpleTableCell.m */; };
+		505E51FE1924970C00B6B1EF /* SimpleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 505E51FC1924970C00B6B1EF /* SimpleTableCell.xib */; };
+		505E52001924974E00B6B1EF /* creme_brelee.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 505E51FF1924974E00B6B1EF /* creme_brelee.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,8 +137,21 @@
 		505E51DB1923B61800B6B1EF /* DBLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLocal.h; sourceTree = "<group>"; };
 		505E51DC1923B61800B6B1EF /* DBLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLocal.m; sourceTree = "<group>"; };
 		505E51DE1923CE0C00B6B1EF /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		505E51E01923D2EB00B6B1EF /* FindIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindIDViewController.h; sourceTree = "<group>"; };
-		505E51E11923D2EB00B6B1EF /* FindIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindIDViewController.m; sourceTree = "<group>"; };
+		505E51E719246C5000B6B1EF /* SimpleShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleShare.h; sourceTree = "<group>"; };
+		505E51E819246C5000B6B1EF /* SimpleShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleShare.m; sourceTree = "<group>"; };
+		505E51EA19246E4700B6B1EF /* SSFindItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSFindItemManager.h; sourceTree = "<group>"; };
+		505E51EB19246E4800B6B1EF /* SSFindItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSFindItemManager.m; sourceTree = "<group>"; };
+		505E51EC19246E4800B6B1EF /* SSShareItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSShareItemManager.h; sourceTree = "<group>"; };
+		505E51ED19246E4800B6B1EF /* SSShareItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSShareItemManager.m; sourceTree = "<group>"; };
+		505E51F019246EF200B6B1EF /* NearbyItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyItemsViewController.h; sourceTree = "<group>"; };
+		505E51F119246EF200B6B1EF /* NearbyItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyItemsViewController.m; sourceTree = "<group>"; };
+		505E51F5192496CE00B6B1EF /* SimpleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableViewController.h; sourceTree = "<group>"; };
+		505E51F6192496CE00B6B1EF /* SimpleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableViewController.m; sourceTree = "<group>"; };
+		505E51F7192496CE00B6B1EF /* SimpleTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleTableViewController.xib; sourceTree = "<group>"; };
+		505E51FA1924970C00B6B1EF /* SimpleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableCell.h; sourceTree = "<group>"; };
+		505E51FB1924970C00B6B1EF /* SimpleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableCell.m; sourceTree = "<group>"; };
+		505E51FC1924970C00B6B1EF /* SimpleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleTableCell.xib; sourceTree = "<group>"; };
+		505E51FF1924974E00B6B1EF /* creme_brelee.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = creme_brelee.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +220,7 @@
 		3520FE8B17660D1200BAA96A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				505E51E619246C2900B6B1EF /* BluetoothShare */,
 				3520FE9417660D1200BAA96A /* APPAppDelegate.h */,
 				3520FE9517660D1200BAA96A /* APPAppDelegate.m */,
 				505E51DB1923B61800B6B1EF /* DBLocal.h */,
@@ -248,8 +270,14 @@
 		505E51A919224CE700B6B1EF /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				505E51E01923D2EB00B6B1EF /* FindIDViewController.h */,
-				505E51E11923D2EB00B6B1EF /* FindIDViewController.m */,
+				505E51FA1924970C00B6B1EF /* SimpleTableCell.h */,
+				505E51FB1924970C00B6B1EF /* SimpleTableCell.m */,
+				505E51FC1924970C00B6B1EF /* SimpleTableCell.xib */,
+				505E51F5192496CE00B6B1EF /* SimpleTableViewController.h */,
+				505E51F6192496CE00B6B1EF /* SimpleTableViewController.m */,
+				505E51F7192496CE00B6B1EF /* SimpleTableViewController.xib */,
+				505E51F019246EF200B6B1EF /* NearbyItemsViewController.h */,
+				505E51F119246EF200B6B1EF /* NearbyItemsViewController.m */,
 				505E51BB1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib */,
 				505E51BC1922509F00B6B1EF /* MainWindow.xib */,
 				505E51AC1922507600B6B1EF /* FirstViewController.h */,
@@ -280,6 +308,7 @@
 		505E51AB19224D0600B6B1EF /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				505E51FF1924974E00B6B1EF /* creme_brelee.jpg */,
 				505E51BF192250BD00B6B1EF /* 001_1.png */,
 				505E51C0192250BD00B6B1EF /* 1.png */,
 				505E51C1192250BD00B6B1EF /* 001.png */,
@@ -295,6 +324,19 @@
 				505E51CB192250BD00B6B1EF /* c-2-1.png */,
 			);
 			name = Main;
+			sourceTree = "<group>";
+		};
+		505E51E619246C2900B6B1EF /* BluetoothShare */ = {
+			isa = PBXGroup;
+			children = (
+				505E51EA19246E4700B6B1EF /* SSFindItemManager.h */,
+				505E51EB19246E4800B6B1EF /* SSFindItemManager.m */,
+				505E51EC19246E4800B6B1EF /* SSShareItemManager.h */,
+				505E51ED19246E4800B6B1EF /* SSShareItemManager.m */,
+				505E51E719246C5000B6B1EF /* SimpleShare.h */,
+				505E51E819246C5000B6B1EF /* SimpleShare.m */,
+			);
+			name = BluetoothShare;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,14 +396,17 @@
 				505E51D6192250BD00B6B1EF /* 004.png in Resources */,
 				505E51D7192250BD00B6B1EF /* bg.png in Resources */,
 				505E51CC192250BD00B6B1EF /* 001_1.png in Resources */,
+				505E52001924974E00B6B1EF /* creme_brelee.jpg in Resources */,
 				505E51D0192250BD00B6B1EF /* 2.png in Resources */,
 				505E51BD1922509F00B6B1EF /* LeveyTabBarDemoViewController.xib in Resources */,
 				505E51A31920EF2300B6B1EF /* ready.png in Resources */,
 				505E51D5192250BD00B6B1EF /* 004_4.png in Resources */,
+				505E51F9192496CE00B6B1EF /* SimpleTableViewController.xib in Resources */,
 				3520FE9817660D1200BAA96A /* Default.png in Resources */,
 				505E51D2192250BD00B6B1EF /* 003_3.png in Resources */,
 				505E51831920C26000B6B1EF /* background.png in Resources */,
 				3520FE9A17660D1200BAA96A /* Default@2x.png in Resources */,
+				505E51FE1924970C00B6B1EF /* SimpleTableCell.xib in Resources */,
 				3520FE9C17660D1200BAA96A /* Default-568h@2x.png in Resources */,
 				3520FEA217660D1200BAA96A /* APPViewController.xib in Resources */,
 				505E51CE192250BD00B6B1EF /* 001.png in Resources */,
@@ -387,13 +432,18 @@
 			files = (
 				505E51B81922507600B6B1EF /* LeveyTabBarController.m in Sources */,
 				505E51B91922507600B6B1EF /* LeveyTabBarDemoAppDelegate.m in Sources */,
-				505E51E21923D2EB00B6B1EF /* FindIDViewController.m in Sources */,
+				505E51FD1924970C00B6B1EF /* SimpleTableCell.m in Sources */,
+				505E51EF19246E4800B6B1EF /* SSShareItemManager.m in Sources */,
 				3520FE9217660D1200BAA96A /* main.m in Sources */,
 				505E51B71922507600B6B1EF /* LeveyTabBar.m in Sources */,
 				505E518F1920CEF200B6B1EF /* MBProgressHUD.m in Sources */,
 				505E51B61922507600B6B1EF /* FirstViewController.m in Sources */,
+				505E51F8192496CE00B6B1EF /* SimpleTableViewController.m in Sources */,
 				3520FE9617660D1200BAA96A /* APPAppDelegate.m in Sources */,
+				505E51F219246EF200B6B1EF /* NearbyItemsViewController.m in Sources */,
 				3520FE9F17660D1200BAA96A /* APPViewController.m in Sources */,
+				505E51EE19246E4800B6B1EF /* SSFindItemManager.m in Sources */,
+				505E51E919246C5000B6B1EF /* SimpleShare.m in Sources */,
 				505E51BA1922507600B6B1EF /* SecondViewController.m in Sources */,
 				505E51DD1923B61800B6B1EF /* DBLocal.m in Sources */,
 				505E518B1920CE8900B6B1EF /* PhotoDetailViewController.m in Sources */,
